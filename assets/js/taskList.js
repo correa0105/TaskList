@@ -18,8 +18,9 @@ document.addEventListener("click", function(event) {                //CAPTURA EV
     const element = event.target;                                   //CRIA A VARIAVEL E ARMAZENA O LUGAR CLICADO
 
     if (element.classList.contains("removeTask")) {                 //SE O ELEMENTO CONTEM A CLASSE REMOVETASK 
+        if (confirm("Sera o excluido o item " + (element.parentElement.innerText.replace("Apagar","")))){ //USA A FUNÇÃO CONFIRM PARA EXCLUIR O ITEM               
         element.parentElement.remove();                             //REMOVE TODOS OS PARENTES;
-        saveTasks();                                                //CHAMA A CLASSE SALVARTASKS
+        saveTasks();}                                               //CHAMA A CLASSE SALVARTASKS
     }
 
 })
