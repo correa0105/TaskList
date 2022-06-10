@@ -30,48 +30,48 @@ function createLi() {                                               //CRIA UM IT
 }
 
 function createTask(textInput) {                                    //CRIA UMA TAREFA
-    const li = createLi();
-    li.innerText = textInput;
-    tasks.appendChild(li);
-    cleanInput();
-    createButtonRemove(li);
-    saveTasks();
+    const li = createLi();                                          //ARMAZENA A FUNÇÃO DE CRIAR LI EM UAM CONSTANTE
+    li.innerText = textInput;                                       
+    tasks.appendChild(li);                                          //A CLASSE TASKS RECEBE O LI CRIADO JUNTAMENTE COM O TEXTO
+    cleanInput();                                                   //LIMPA O INPUT
+    createButtonRemove(li);                                         //CRIA O BOTAO REMOVER
+    saveTasks();                                                    //CHAMA A CLASSE DE SALVAR AS TASKS
 }
 
-function cleanInput() {
-    inputNewTask.value = "";
-    inputNewTask.focus();
+function cleanInput() {                                             //LIMPA O INPUT
+    inputNewTask.value = "";                                        //DETERMIAN O INPUT VAZIO
+    inputNewTask.focus();                                           //DA FOCUS NO INPUT
 }
 
-function createButtonRemove(li) {
-    const btnRemove = document.createElement("button");
-    btnRemove.setAttribute("class", "removeTask");
-    btnRemove.innerText = "Apagar";
+function createButtonRemove(li) {                                   //CRIA BOTAO REMOVER
+    const btnRemove = document.createElement("button");             //ARMAZENA A CRIAÇÃO DE UM BOTÃO EM UMA CONSTANTE
+    btnRemove.setAttribute("class", "removeTask");                  //O BOTAO RECEBE A CLASS REMOVETASK
+    btnRemove.innerText = "Apagar";                                 //BOTAO REMOVE RECEBE O TEXTO APAGAR
 
-    li.appendChild(btnRemove);
+    li.appendChild(btnRemove);                                      //O LI RECEBE O BOTAO REMOVE
 }
 
-function saveTasks() {
-    const liTasks = tasks.querySelectorAll("li");
-    const arrayListTasks = [];
+function saveTasks() {                                              //FUNÇÃO PARA SALVAR AS TASKS
+    const liTasks = tasks.querySelectorAll("li");                   //SELECIONA TODOS ELEMENTOS LI DENTRO DE TASKS
+    const arrayListTasks = [];                                      //CRIA O ARRAY DAS TAREFAS
 
-    for (let task of liTasks) {
-        let taskText = task.innerText;
-        taskText = taskText.replace("Apagar", "").trim();
-        arrayListTasks.push(taskText);
+    for (let task of liTasks) {                                     //CRIA UMA VARIAVEL LET QUE VAI ARMAZENANDO O LI
+        let taskText = task.innerText;                              //ARMAZENA O INNER TEXT DO LI EM UMA VARIAVEL CHAMADA TASKTEXT
+        taskText = taskText.replace("Apagar", "").trim();           //TASK TEXT RECEBE A SUBSTITUIÇÃO DE APAGAR POR VAZIO
+        arrayListTasks.push(taskText);                              //ADICIONA AO FINAL DO ARRAY LIST O TEXTO ARMAZENADO PELA VARIAVEL TEXT
     }
 
-    const taskJSON = JSON.stringify(arrayListTasks);
-    localStorage.setItem("tasksSaved", taskJSON);
+    const taskJSON = JSON.stringify(arrayListTasks);                //ARMAZENA EM UMA CONSTANTE A CONVERSÃO DO ARRAY LIST PARA JSON STRING
+    localStorage.setItem("tasksSaved", taskJSON);                   //LOCAL STORAGE DO NAVEGADOR RECEBE A FUNÇÃO ARMAZENADA NA TASKJSON
 }
 
-function addTasksSaved() {
-    const tasks = localStorage.getItem("tasksSaved");
-    const tasksList = JSON.parse(tasks);
+function addTasksSaved() {                                          //ATUALIZA A PAGINA COM AS TASKS SALVAS
+    const tasks = localStorage.getItem("tasksSaved");               //ARMAZENA OS DADOS DO LOCAL STORAGE EM UMA CONSTANTE
+    const tasksList = JSON.parse(tasks);                            //TRANSFORMA OS DADOS DO STORAGE EM ARRAY EM ARMAZENA EM UMA VARIAVEL
 
-    for (let task of tasksList) {
-        createTask(task);
+    for (let task of tasksList) {                                   //CRIA UMA VARIAVEL TASK QUE VAI ARMAZENANDO O CADA ITEM DO ARRAY
+        createTask(task);                                           //CHAMA A FUNÇÃO CREATETASK COM O VALOR DA VARIAVEL TASK
     }
 }
 
-addTasksSaved();
+addTasksSaved();                                                    //SEMPRE CHAMA A FUNÇÃO DE ATUALZIAR A APGINA COM AS TASKS SALVAS
